@@ -1,4 +1,4 @@
-#include mk
+#include <stdio.h>
 int main (){
 //Declarando as variaveis (Poderia ter botado = 0 para boa pratica )
 float altura;
