@@ -19,5 +19,5 @@ int main (){
    if (contador == 3){
  	printf("Cadastro bloqueado");
  }	
-	return 0;
+	system("pause");
 }
