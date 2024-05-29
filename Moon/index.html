@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universo Estrelado</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #04133c; /* Azul escuro */
+        font-family: 'Arial', sans-serif; /* Fonte para a pergunta */
+    }
+
+    #sky {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: #04133c; /* Azul escuro */
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        animation: twinkle 1s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        0% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+
+    .shooting-star {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background-color: #fff;
+        border-radius: 50%;
+        animation: shootingStar 5s linear infinite; /* Animação da estrela cadente */
+        opacity: 0; /* Começa com opacidade 0 para dar efeito de brilho */
+    }
+
+    @keyframes shootingStar {
+        0% {
+            top: -20%; /* Inicia acima do topo da tela */
+            left: 10%; /* Posição inicial esquerda */
+            opacity: 1;
+        }
+        100% {
+            top: 110%; /* Termina abaixo do fundo da tela */
+            left: calc(90% - 96px); /* Posição final direita */
+            opacity: 0;
+        }
+    }
+
+    #moon {
+        position: absolute;
+        top: calc(50% - 100px); /* Metade da altura da lua */
+        left: calc(50% - 100px); /* Metade da largura da lua */
+        width: 200px;
+        height: 200px;
+        background-color: #cecece;
+        border-radius: 50%;
+        box-shadow: 0 0 30px 10px #e7e7e7, 0 0 40px 20px rgba(255, 255, 255, 0.3);
+        overflow: hidden; /* Para esconder as partes fora da lua */
+        animation: float 5s infinite alternate ease-in-out; /* Adicionando animação de flutuação */
+        transition: transform 0.3s ease; /* Adicionando transição para a transformação */
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(-5px); }
+        50% { transform: translateY(5px); }
+    }
+
+    .moon-dot {
+        position: absolute;
+        background-color: #b8b4b4;
+        border-radius: 50%;
+    }
+
+    .moon-dot-inner {
+        position: absolute;
+        background-color: #a3a1a1;
+        border-radius: 50%;
+    }
+
+    #moon-dot-1 {
+        width: 30px;
+        height: 30px;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #moon-dot-1 .moon-dot-inner {
+        width: 20px;
+        height: 20px;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #moon-dot-2 {
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        left: 20%;
+        transform: translateY(-50%);
+    }
+
+    #moon-dot-2 .moon-dot-inner {
+        width: 10px;
+        height: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #moon-dot-3 {
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        left: 80%;
+        transform: translateY(-50%);
+    }
+
+    #moon-dot-3 .moon-dot-inner {
+        width: 13px;
+        height: 13px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #moon-dot-4 {
+        width: 20px;
+        height: 20px;
+        top: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #moon-dot-4 .moon-dot-inner {
+        width: 12px;
+        height: 12px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #moon-dot-5 {
+        width: 25px;
+        height: 25px;
+        top: 70%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+    }
+
+    #moon-dot-5 .moon-dot-inner {
+        width: 15px;
+        height: 15px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #star {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 30px 10px #e7e7e7, 0 0 40px 20px rgba(255, 255, 255, 0.3);
+        top: calc(30%); /* Ajuste a posição conforme necessário */
+        left: calc(70%); /* Ajuste a posição conforme necessário */
+        animation: float 7s infinite alternate ease-in-out; /* Adicionando animação de flutuação */
+    }
+
+    #sun {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background-color: #f6ca52; /* Amarelo */
+        border-radius: 50%;
+        top: calc(20%); /* Ajuste a posição conforme necessário */
+        left: calc(80%); /* Ajuste a posição conforme necessário */
+        box-shadow: 0 0 50px 20px #ffeb3b, 0 0 100px 40px rgba(255, 235, 59, 0.5); /* Efeito de brilho */
+        animation: pulse 5s infinite alternate;
+        transition: transform 0.5s ease; /* Adicionando transição para o zoom */
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    /* Estilo para a pergunta */
+    #clique-no-sol {
+        position: absolute;
+        bottom: calc(100% + 20px); /* Posição em relação ao fundo, ajustada para abaixo da lua */
+        left: 50%; /* Centralizando a pergunta horizontalmente */
+        transform: translateX(-50%); /* Centralizando a pergunta horizontalmente */
+        color: #fff; /* Cor da fonte */
+        font-size: 24px; /* Tamanho da fonte */
+        animation: float 5s infinite alternate ease-in-out; /* Animação de flutuação */
+        cursor: pointer; /* Indicador de clique */
+    }
+
+    /* Estilo para a mensagem dentro do sol */
+    #sun-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #000; /* Cor da mensagem */
+        font-size: 24px; /* Tamanho da fonte da mensagem */
+        display: none; /* Escondido inicialmente */
+        text-align: center;
+    }
+
+    /* Estilo para o botão de retornar */
+    #return-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 10px 20px;
+        background-color: #f6ca52;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: none; /* Escondido inicialmente */
+    }
+</style>
+</head>
+<body>
+
+<div id="sky">
+    <!-- Estrelas -->
+    <!-- Adicione mais estrelas conforme necessário -->
+    <div class="star" style="top: 30px; left: 50px;"></div>
+    <div class="star" style="top: 100px; left: 200px;"></div>
+    <div class="star" style="top: 200px; left: 400px;"></div>
+    <div class="star" style="top: 300px; left: 250px;"></div>
+    <div class="star" style="top: 150px; left: 350px;"></div>
+    <!-- Estrelas preenchendo o céu -->
+    <!-- Adicione mais estrelas conforme necessário -->
+    <script>
+        const sky = document.getElementById('sky');
+        const numberOfStars = 200; // Definindo o número de estrelas
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.floor(Math.random() * 100) + 'vh';
+            star.style.left = Math.floor(Math.random() * 100) + 'vw';
+            sky.appendChild(star);
+        }
+    </script>
+
+    <!-- Estrela cadente -->
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <!-- Adicionando mais duas estrelas cadentes -->
+    <div class="shooting-star" style="left: 20%; top: 20%;"></div>
+    <div class="shooting-star" style="left: 70%; top: 70%;"></div>
+
+    <!-- Lua -->
+    <div id="moon">
+        <!-- Círculos na lua -->
+        <div id="moon-dot-1" class="moon-dot">
+            <div class="moon-dot-inner"></div>
+        </div>
+        <div id="moon-dot-2" class="moon-dot">
+            <div class="moon-dot-inner"></div>
+        </div>
+        <div id="moon-dot-3" class="moon-dot">
+            <div class="moon-dot-inner"></div>
+        </div>
+        <div id="moon-dot-4" class="moon-dot">
+            <div class="moon-dot-inner"></div>
+        </div>
+        <div id="moon-dot-5" class="moon-dot">
+            <div class="moon-dot-inner"></div>
+        </div>
+    </div>
+
+    <!-- Estrela menor -->
+    <div id="star">
+        <div class="moon-dot-inner"></div>
+    </div>
+
+    <!-- Sol -->
+    <div id="sun" onclick="zoomInOnSun()">
+        <div id="sun-message">mensagem do sol</div>
+    </div>
+
+    <!-- Pergunta "CLIQUE NO SOL" -->
+    <div id="clique-no-sol">CLIQUE NO SOL</div>
+
+    <!-- Botão de retornar -->
+    <button id="return-button" onclick="zoomOut()">Retornar</button>
+</div>
+
+<script>
+    function zoomInOnSun() {
+        const sun = document.getElementById('sun');
+        const sunMessage = document.getElementById('sun-message');
+        const returnButton = document.getElementById('return-button');
+        const cliqueNoSol = document.getElementById('clique-no-sol');
+        
+        // Esconde a mensagem "CLIQUE NO SOL"
+        cliqueNoSol.style.display = 'none';
+        
+        // Dá zoom no sol
+        sun.style.transform = 'scale(2)';
+        
+        // Mostra a mensagem dentro do sol
+        sunMessage.style.display = 'block';
+        
+        // Mostra o botão de retornar
+        returnButton.style.display = 'block';
+    }
+
+    function zoomOut() {
+        const sun = document.getElementById('sun');
+        const sunMessage = document.getElementById('sun-message');
+        const returnButton = document.getElementById('return-button');
+        const cliqueNoSol = document.getElementById('clique-no-sol');
+        
+        // Remove o zoom no sol
+        sun.style.transform = 'scale(1)';
+        
+        // Esconde a mensagem dentro do sol
+        sunMessage.style.display = 'none';
+        
+        // Esconde o botão de retornar
+        returnButton.style.display = 'none';
+        
+        // Altera o texto da mensagem para "CLIQUE NA ESTRELA MAIS FORTE"
+        cliqueNoSol.innerText = 'CLIQUE NA ESTRELA MAIS FORTE';
+        
+        // Mostra a mensagem alterada
+        cliqueNoSol.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
+
